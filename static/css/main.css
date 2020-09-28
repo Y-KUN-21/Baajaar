@@ -1,0 +1,9 @@
+body {
+    background-color: blue;
+}
+
+#cart-icon {
+    height: 50px;
+    padding: 10px;
+    margin-left: 20px;
+}
