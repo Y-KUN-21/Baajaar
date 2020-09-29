@@ -1,0 +1,18 @@
+{% extends "baajaar_app/main.html" %} {% load static %} {% block content %}
+<section class="text-center m-4">
+	<div class="row"> {% for product in products %}
+		<div class="col-lg-3 col-md-5 col-sm-5 col-xs-1">
+			<div class="card mb-4 ">
+				<div class="card-body">
+					<a href=""> <img style="width: 250px; height: 230px;" class="img-thumbnail z-depth-3" src="{{ product.imageURL }}" alt=""> </a>
+					<div class="card-body">
+						<a href="" class="grey-text">
+							<p>{{ product.brand }} </p>
+						</a>
+						<h5>₹ {{ product.price|floatformat:2 }}</h5> <strong>
+                  <p class="text-center text-truncate">{{ product.name }}</p>
+                </strong> </div>
+					<button data-product={ { product.id }} data-action="add_to_cart" class="btn btn-outline-primary add_cart_btn">Add to cart</button> <a href="" class="btn btn-outline-info">View</a> </div>
+			</div>
+		</div> {% endfor %} </div>
+</section> {% endblock %}
