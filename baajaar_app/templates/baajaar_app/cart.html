@@ -1,0 +1,45 @@
+{% extends "baajaar_app/main.html" %} {% load static %} {% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<div class="card mt-5 mb-5">
+				<div class="card-body p-4">
+					<h5 class="text-center"> <strong> Order Summary </strong> </h5>
+					<div class="row p-5">
+						<div class="col-md-12">
+							<table class="table">
+								<thead>
+									<tr>
+										<th class="border-0 text-uppercase small font-weight-bold">ID</th>
+										<th class="border-0 text-uppercase small font-weight-bold">Item</th>
+										<th class="border-0 text-uppercase small font-weight-bold">Quantity</th>
+										<th class="border-0 text-uppercase small font-weight-bold">Price/Unit</th>
+										<th class="border-0 text-uppercase small font-weight-bold">Total</th>
+									</tr>
+								</thead>
+								<tbody> {% for item in items %}
+									<tr>
+										<td>{{ forloop.counter }}</td>
+										<td><strong> {{ item.product.brand }}</strong> {{ item.product.name }} </td>
+										<td>
+											<a class="" href=""> <i class="fas fa-minus"></i> </a>
+											<button type="button" class="btn btn-outline-primary px-3 ml-2"> {{ item.quantity }} </button>
+											<a href=""> <i class="fas fa-plus ml-2"></i> </a>
+										</td>
+										<td>₹ {{ item.product.price }}</td>
+										<td>₹ {{ item.get_total }}</td> {% endfor %} </tr>
+							</table>
+						</div>
+					</div>
+					<div class="d-flex flex-row-reverse text-dark p-4" style="background-color:#fffff">
+						<div class="py-3 px-5 text-right">
+							<div class="mb-2">Grand Total</div>
+							<div class="h4 font-weight-light"><strong>₹ {{ order.get_grand_total }}</strong> </div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center"> <a href="" class="btn btn-outline-primary waves-effect p-2 mt-3 mb-5 col-3 ">Continue Shopping</a> <a href="{% url 'checkout'%}" class="btn btn-outline-info waves-effect p-2 mt-3 mb-5 ml-3 col-3">Proceed to Checkout</a> </div>
+		</div>
+	</div>
+</div> {% endblock %}
