@@ -9,7 +9,29 @@ for (var i = 0; i < update_cart_btn.length; i++) {
         if (user == 'AnonymousUser') {
             console.log('Unauthenticated user !')
         } else {
-            console.log('Authenticated user! sending query ')
+            UpdateItem(productId, action)
         }
     })
+}
+
+function UpdateItem(productId, action) {
+    console.log('Authenticated user! sending query ')
+    var url = '/update-item/'
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-csrfToken': csrftoken
+        },
+        body: JSON.stringify({ 'productId': productId, 'action': action })
+    })
+
+    .then((response) =>{
+            return response.json()
+        })
+        .then((data) =>{
+            console.log('data,', data)
+        })
+
+
 }
