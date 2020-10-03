@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -47,7 +49,10 @@ class Order(models.Model):
         Customer, on_delete=models.SET_NULL, null=True, blank=True)
     order_date = models.DateField(auto_now_add=True)
     completed = models.BooleanField(default=False, null=True, blank=True)
-    transactionId = models.CharField(null=True, blank=True, max_length=250)
+    transactionId = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False)
 
     def __str__(self):
         return str(self.transactionId)
@@ -57,6 +62,12 @@ class Order(models.Model):
         ordered_items = self.ordereditem_set.all()
         grand_total = sum([item.get_total for item in ordered_items])
         return grand_total
+
+    @property
+    def get_cart_items(self):
+        ordered_items = self.ordereditem_set.all()
+        total = sum([item.quantity for item in ordered_items])
+        return total
 
 
 class OrderedItem(models.Model):
