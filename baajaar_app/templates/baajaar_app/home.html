@@ -12,7 +12,7 @@
 						<h5>₹ {{ product.price|floatformat:2 }}</h5> <strong>
                   <p class="text-center text-truncate">{{ product.name }}</p>
                 </strong> </div>
-					<button data-product={ { product.id }} data-action="add_to_cart" class="btn btn-outline-primary add_cart_btn">Add to cart</button> <a href="" class="btn btn-outline-info">View</a> </div>
+					<button data-product="{{ product.id }} " data-action="add" class="btn btn-outline-primary add_cart_btn">Add to cart</button> <a href="" class="btn btn-outline-info">View</a> </div>
 			</div>
 		</div> {% endfor %} </div>
 </section> {% endblock %}

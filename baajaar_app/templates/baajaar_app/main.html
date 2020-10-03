@@ -6,6 +6,7 @@
 <head>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<title>Baajaar</title>
+	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
   <script type="text/javascript">
     var user = '{{ request.user }}'
     function getCookie(name) {
@@ -35,7 +36,7 @@
 				<nav class="nav nav-baajaar justify-content-center"> <a class="nav-link active" href="{% url 'home'%}">Home</a>
 					<form class="form-inline md-form my-0"> {% if user.is_authenticated %} <a href="" class="nav-link text-warning">{{ request.user }}</a>
 						<a href="{% url 'cart'%}"> <img id="cart-icon" class="nav-link" src={% static 'images/carts.png' %}> </a>
-						<p class="nav-link badge badge-warning">77</p> {% else %} <a href="" class="nav-link text-warning">Login</a>
+						<p class="nav-link badge badge-warning">{{ cartItems }}</p> {% else %} <a href="" class="nav-link text-warning">Login</a>
 						<a href="{% url 'cart'%}"> <img id="cart-icon" class="nav-link" src={% static 'images/carts.png' %}></a>
 						<p class="nav-link badge badge-warning">0</p> {% endif %}</form>
 				</nav>

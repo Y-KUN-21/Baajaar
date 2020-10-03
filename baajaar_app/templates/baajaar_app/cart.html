@@ -20,11 +20,12 @@
 								<tbody> {% for item in items %}
 									<tr>
 										<td>{{ forloop.counter }}</td>
-										<td><strong> {{ item.product.brand }}</strong> {{ item.product.name }} </td>
+										<td><strong> {{ item.product.brand }} </strong> {{ item.product.name }} </td>
 										<td>
-											<a class="" href=""> <i class="fas fa-minus"></i> </a>
+
+											<i data-product= "{{ item.id }}" data-action="remove" class="fas fa-minus  add_cart_btn"></i>
 											<button type="button" class="btn btn-outline-primary px-3 ml-2"> {{ item.quantity }} </button>
-											<a href=""> <i class="fas fa-plus ml-2"></i> </a>
+											<i data-product= "{{ item.id }}" data-action="add" class="fas fa-plus ml-2 add_cart_btn"></i>
 										</td>
 										<td>₹ {{ item.product.price }}</td>
 										<td>₹ {{ item.get_total }}</td> {% endfor %} </tr>
