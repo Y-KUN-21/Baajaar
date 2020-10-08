@@ -69,6 +69,14 @@ class Order(models.Model):
         total = sum([item.quantity for item in ordered_items])
         return total
 
+    @property
+    def shipping(self):
+        shipping = False
+        ordered_items = self.ordereditem_set.all()
+        if ordered_items:
+            shipping = True
+        return shipping
+
 
 class OrderedItem(models.Model):
     product = models.ForeignKey(
