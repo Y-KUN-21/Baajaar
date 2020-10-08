@@ -23,9 +23,9 @@
 										<td><strong> {{ item.product.brand }} </strong> {{ item.product.name }} </td>
 										<td>
 
-											<i data-product= "{{ item.id }}" data-action="remove" class="fas fa-minus  add_cart_btn"></i>
+											<i data-product= "{{ item.product.id }}" data-action="remove" class="fas fa-minus  add_cart_btn"></i>
 											<button type="button" class="btn btn-outline-primary px-3 ml-2"> {{ item.quantity }} </button>
-											<i data-product= "{{ item.id }}" data-action="add" class="fas fa-plus ml-2 add_cart_btn"></i>
+											<i data-product= "{{ item.product.id }}" data-action="add" class="fas fa-plus ml-2 add_cart_btn"></i>
 										</td>
 										<td>₹ {{ item.product.price }}</td>
 										<td>₹ {{ item.get_total }}</td> {% endfor %} </tr>
