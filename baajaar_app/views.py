@@ -37,7 +37,8 @@ def cart(request):
 
 
 def checkout(request):
-    context = {}
+
+    context = {'order': Order}
     return render(request, 'baajaar_app/checkout.html', context)
 
 
@@ -45,6 +46,7 @@ def updateItem(request):
     data = json.loads(request.body)
     productId = data['productId']
     action = data['action']
+    print("PRODUCT ID =="+productId)
     customer = request.user.customer
     product = Product.objects.get(id=productId)
     order, created = Order.objects.get_or_create(customer=customer, completed=False)
