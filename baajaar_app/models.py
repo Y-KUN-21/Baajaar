@@ -72,8 +72,8 @@ class Order(models.Model):
     @property
     def shipping(self):
         shipping = False
-        ordered_items = self.ordereditem_set.all()
-        if ordered_items:
+        ordered_items = OrderedItem.objects.all().count()
+        if ordered_items > 0:
             shipping = True
         return shipping
 
