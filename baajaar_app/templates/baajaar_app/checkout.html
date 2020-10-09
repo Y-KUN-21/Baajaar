@@ -5,7 +5,7 @@
 		<div  id="shipping-status">
 			{% if order.shipping %}
 		<h4 class="mb-3">Billing address</h4>
-		<form class="needs-validation" id="form" novalidate>
+		<form  id="form" novalidate>
 			<div class="row">
 				<div class="col-md-6 mb-3">
 					<label for="firstName">First name</label>
@@ -55,11 +55,14 @@
 				</div>
 			</div>
 			<hr class="mb-4">
-			<input class="btn btn-primary btn-lg btn-block" id="form_button" type="submit">
+			<div id="form-button">
+				<input class="btn btn-primary btn-lg btn-block" type="submit">
+			</div>
+
 
 		</form>
 		</div>
-		<div class="payment-details hidden">
+		<div class="hidden" id="payment-details">
 			<h4 class="mb-3">Payment</h4>
 			<div class="d-block my-3">
 				<div class="custom-control custom-radio">
@@ -117,8 +120,8 @@
 	form.addEventListener('submit',function(e){
 		e.preventDefault()
 		console.log("form submitted")
-		document.getElementById('form_button').classlist.add('hidden')
-		document.getElementByClass('payment-details').classlist.remove('hidden')
+		document.getElementById('form-button').classList.add('hidden')
+		document.getElementById('payment-details').classList.remove('hidden')
 	})
 </script>
 {% endblock %}
