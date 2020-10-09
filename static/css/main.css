@@ -1,9 +1,34 @@
-body {
-    background-color: blue;
+.bg {
+    background-color: #eeeeee;
 }
 
 #cart-icon {
-    height: 50px;
+    height: 40px;
     padding: 10px;
-    margin-left: 20px;
+    margin-left: 10px;
+}
+
+.baajaar {
+    margin-bottom: 2rem;
+    margin-left: 1.5rem;
+}
+
+.baajaar-brand {
+    margin-bottom: 0;
+}
+
+@media (min-width: 48em) {
+    .baajaar-brand {
+        float: left;
+    }
+    .nav-baajaar {
+        float: right;
+    }
+}
+.add_cart_btn:hover{
+    cursor: pointer;
+}
+
+.hidden {
+     display: none;
 }
