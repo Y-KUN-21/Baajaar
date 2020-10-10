@@ -97,10 +97,12 @@ class ShippingAdress(models.Model):
         Customer, on_delete=models.SET_NULL, null=True, blank=True)
     order = models.ForeignKey(
         Order, on_delete=models.SET_NULL, null=True, blank=True)
-    Address = models.CharField(null=True, blank=True, max_length=250)
+    firstname = models.CharField(null=True, blank=True, max_length=250)
+    lastname = models.CharField(null=True, blank=True, max_length=250)
+    address = models.CharField(null=True, blank=True, max_length=1000)
     city = models.CharField(null=True, blank=True, max_length=250)
-    zipcode = models.CharField(null=True, blank=True, max_length=250)
-    Country = models.CharField(null=True, blank=True, max_length=250)
+    zipcode = models.CharField(null=True, blank=True, max_length=250) 
+    state = models.CharField(null=True, blank=True, max_length=700)
     date = models.DateField(auto_now_add=True)
 
     def __str__(self):
