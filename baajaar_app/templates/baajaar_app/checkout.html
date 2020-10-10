@@ -3,54 +3,75 @@
 <div class="row justify-content-center">
 	<div class="col-md-8 order-md-1">
 		<div  id="shipping-status">
+			{{ order.get_grand_total|floatformat:2}}
 			{% if order.shipping %}
 		<h4 class="mb-3">Billing address</h4>
 		<form  id="form" novalidate>
+			{% csrf_token %}
 			<div class="row">
 				<div class="col-md-6 mb-3">
 					<label for="firstName">First name</label>
-					<input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+					<input type="text" class="form-control" id="firstName" name="firstName" required>
 					<div class="invalid-feedback"> Valid first name is required. </div>
 				</div>
 				<div class="col-md-6 mb-3">
 					<label for="lastName">Last name</label>
-					<input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+					<input type="text" class="form-control" id="lastName" name="lastName" required>
 					<div class="invalid-feedback"> Valid last name is required. </div>
 				</div>
 			</div>
 			<div class="mb-3">
-				<label for="email">Email <span class="text-muted">(Optional)</span></label>
-				<input type="email" class="form-control" id="email" placeholder="you@example.com">
-				<div class="invalid-feedback"> Please enter a valid email address for shipping updates. </div>
-			</div>
-			<div class="mb-3">
 				<label for="address">Address</label>
-				<input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
+				<input type="text" class="form-control" id="address" name="address" placeholder="1234 Main St" required>
 				<div class="invalid-feedback"> Please enter your shipping address. </div>
 			</div>
-			<div class="mb-3">
-				<label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-				<input type="text" class="form-control" id="address2" placeholder="Apartment or suite"> </div>
 			<div class="row">
-				<div class="col-md-5 mb-3">
-					<label for="country">Country</label>
-					<select class="custom-select d-block w-100" id="country" required>
-						<option value="">Choose...</option>
-						<option>India</option>
-					</select>
-					<div class="invalid-feedback"> Please select a valid country. </div>
-				</div>
 				<div class="col-md-4 mb-3">
 					<label for="state">State</label>
-					<select class="custom-select d-block w-100" id="state" required>
+					<select class="custom-select d-block w-100" id="state" name="state" required>
 						<option value="">Choose...</option>
-						<option>Maharashtra</option>
+						<option value="Andhra Pradesh">Andhra Pradesh</option>
+						<option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+						<option value="Arunachal Pradesh">Arunachal Pradesh</option>
+						<option value="Assam">Assam</option>
+						<option value="Bihar">Bihar</option>
+						<option value="Chandigarh">Chandigarh</option>
+						<option value="Chhattisgarh">Chhattisgarh</option>
+						<option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+						<option value="Daman and Diu">Daman and Diu</option>
+						<option value="Delhi">Delhi</option>
+						<option value="Lakshadweep">Lakshadweep</option>
+						<option value="Puducherry">Puducherry</option>
+						<option value="Goa">Goa</option>
+						<option value="Gujarat">Gujarat</option>
+						<option value="Haryana">Haryana</option>
+						<option value="Himachal Pradesh">Himachal Pradesh</option>
+						<option value="Jammu and Kashmir">Jammu and Kashmir</option>
+						<option value="Jharkhand">Jharkhand</option>
+						<option value="Karnataka">Karnataka</option>
+						<option value="Kerala">Kerala</option>
+						<option value="Madhya Pradesh">Madhya Pradesh</option>
+						<option value="Maharashtra">Maharashtra</option>
+						<option value="Manipur">Manipur</option>
+						<option value="Meghalaya">Meghalaya</option>
+						<option value="Mizoram">Mizoram</option>
+						<option value="Nagaland">Nagaland</option>
+						<option value="Odisha">Odisha</option>
+						<option value="Punjab">Punjab</option>
+						<option value="Rajasthan">Rajasthan</option>
+						<option value="Sikkim">Sikkim</option>
+						<option value="Tamil Nadu">Tamil Nadu</option>
+						<option value="Telangana">Telangana</option>
+						<option value="Tripura">Tripura</option>
+						<option value="Uttar Pradesh">Uttar Pradesh</option>
+						<option value="Uttarakhand">Uttarakhand</option>
+						<option value="West Bengal">West Bengal</option>
 					</select>
 					<div class="invalid-feedback"> Please provide a valid state. </div>
 				</div>
 				<div class="col-md-3 mb-3">
 					<label for="zip">Zip</label>
-					<input type="text" class="form-control" id="zip" placeholder="" required>
+					<input type="text" class="form-control" id="zip" name="zip" placeholder="" required>
 					<div class="invalid-feedback"> Zip code required. </div>
 				</div>
 			</div>
@@ -58,8 +79,6 @@
 			<div id="form-button">
 				<input class="btn btn-primary btn-lg btn-block" type="submit">
 			</div>
-
-
 		</form>
 		</div>
 		<div class="hidden" id="payment-details">
@@ -102,19 +121,22 @@
 					<div class="invalid-feedback"> Security code required </div>
 				</div>
 			</div>
-						<button class="btn btn-primary btn-lg btn-block" type="submit">Make payment</button>
+				<button class="btn btn-primary btn-lg btn-block" id="make-payment" type="submit">Make payment</button>
 			</div>
 		{%else%}
 		<div class="row justify-content-center">
 			<p class="text-center" style="font-size:500%">You don't have any item in your cart.</p>
 			<a href="{% url 'home'%}" class="btn btn-warning" >Start shopping</a>
 		</div>
-
 		{%endif%}
 	</div>
 </div>
 </div>
 <script type="text/javascript">
+	var shipping = '{{ order.shipping }}'
+	var total = '{{ order.get_grand_total|floatformat:2}}'
+	var csrf_token = document.getElementsByTagName('input')[0].value
+	console.log("token",csrf_token)
 	var form = document.getElementById('form')
 
 	form.addEventListener('submit',function(e){
@@ -123,5 +145,56 @@
 		document.getElementById('form-button').classList.add('hidden')
 		document.getElementById('payment-details').classList.remove('hidden')
 	})
+
+	document.getElementById('make-payment').addEventListener('click',function(e){
+		submitFormData()
+	})
+
+	function submitFormData(){
+		console.log("Starting payment")
+
+		var userFormData = {
+			'name':null,
+			'email':null,
+			'total':total,
+		}
+
+		var ShippingFormData = {
+			'firstName':null,
+			'lastName':null,
+			'address':null,	
+			'state':null,
+			'zip':null,
+			
+		}
+		if(shipping != 'False'){
+			ShippingFormData.firstName = form.firstName.value
+			ShippingFormData.lastName = form.lastName.value
+			ShippingFormData.address = form.address.value
+			ShippingFormData.state = form.state.value
+			ShippingFormData.zip = form.zip.value
+		}
+
+		var url = '/process-order/'
+		fetch(url, {
+			method:'POST',
+			headers:{
+				 'Content-Type': 'application/json',
+            'X-csrfToken': csrftoken
+        },
+        body: JSON.stringify({ 'form': userFormData, 'shipping': ShippingFormData })
+		}).then((response) =>{
+            return response.json()
+        })
+        .then((data) =>{
+            console.log('Success', data);
+            alert('Payment Successful');
+            window.location.href = '{% url 'home' %}'
+           
+        })
+
+	}
+
+
 </script>
 {% endblock %}
