@@ -2,7 +2,7 @@ import json
 
 from django.http import JsonResponse
 from django.shortcuts import render
-from .models import Customer, Product, Order, OrderedItem
+from .models import Customer, Product, Order, OrderedItem, ShippingAdress
 
 
 # Create your views here.
@@ -37,8 +37,10 @@ def cart(request):
 
 
 def checkout(request):
-
-    context = {'order': Order}
+    customer = request.user.customer
+    order, created = Order.objects.get_or_create(
+        customer=customer, completed=False)
+    context = {'order': order}
     return render(request, 'baajaar_app/checkout.html', context)
 
 
@@ -46,12 +48,14 @@ def updateItem(request):
     data = json.loads(request.body)
     productId = data['productId']
     action = data['action']
-    print("PRODUCT ID =="+productId)
+    print("PRODUCT ID ==" + productId)
     customer = request.user.customer
     product = Product.objects.get(id=productId)
-    order, created = Order.objects.get_or_create(customer=customer, completed=False)
+    order, created = Order.objects.get_or_create(
+        customer=customer, completed=False)
 
-    Ordered_Item, created = OrderedItem.objects.get_or_create(order=order, product=product)
+    Ordered_Item, created = OrderedItem.objects.get_or_create(
+        order=order, product=product)
 
     if action == "add":
         Ordered_Item.quantity = (Ordered_Item.quantity + 1)
@@ -64,3 +68,31 @@ def updateItem(request):
         Ordered_Item.delete()
 
     return JsonResponse("added the item", safe=False)
+
+
+def processOrder(request):
+    data = json.loads(request.body)
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(
+            customer=customer, completed=False)
+        total = float(data['form']['total'])
+
+        if total == Order.get_cart_total:
+            order.completed = True
+        order.save()
+
+        if order.shipping:
+            ShippingAdress.objects.create(
+                customer=customer,
+                order=order,
+                firstname=data['shipping']['firstName'],
+                lastname=data['shipping']['lastName'],
+                address=data['shipping']['Address'],
+                state=data['shipping']['state'],
+                zipcode=data['shipping']['zip'],
+
+            )
+    else:
+        print("bruh...................user is not authenticated")
+    return JsonResponse('Payment completed', safe=False)
