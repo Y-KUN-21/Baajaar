@@ -1,0 +1,28 @@
+{% extends "baajaar_app/main.html" %} {% load static %} {% block content %}
+<div class="container">
+<div class="row justify-content-center">
+<div class="col-md-5 col-lg-4">
+	<h3 class="text-center">Create an Account</h3><br>
+<form>
+ 
+  <div class="form-group">
+    <label for="emailId">Email address</label>
+    <input type="email" class="form-control" id="emailId" aria-describedby="emailHelp" placeholder="Enter email">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+   <div class="form-group">
+    <label for="username">Email address</label>
+    <input type="username" class="form-control" id="username" placeholder="Enter Username">
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" id="password" placeholder="Password">
+  </div>
+  <button type="submit" class="btn btn-primary">Login</button>
+</form>
+<a href="{% url 'login'%}" class="text-mutted"align="center" >Already ahave an account? Login</a>
+</div>
+ </div>
+</div>
+
+{% endblock %}
