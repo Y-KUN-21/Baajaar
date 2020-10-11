@@ -3,7 +3,6 @@
 <div class="row justify-content-center">
 	<div class="col-md-8 order-md-1">
 		<div  id="shipping-status">
-			{{ order.get_grand_total|floatformat:2}}
 			{% if order.shipping %}
 		<h4 class="mb-3">Billing address</h4>
 		<form  id="form" novalidate>
@@ -136,7 +135,8 @@
 	var shipping = '{{ order.shipping }}'
 	var total = '{{ order.get_grand_total|floatformat:2}}'
 	var csrf_token = document.getElementsByTagName('input')[0].value
-	console.log("token",csrf_token)
+	console.log("new token",csrf_token)
+	console.log("old token",csrftoken)
 	var form = document.getElementById('form')
 
 	form.addEventListener('submit',function(e){

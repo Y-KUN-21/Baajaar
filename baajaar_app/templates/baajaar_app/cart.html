@@ -7,6 +7,7 @@
 					<h5 class="text-center"> <strong> Order Summary </strong> </h5>
 					<div class="row p-5">
 						<div class="col-md-12">
+							{% if items|length > 0 %}
 							<table class="table">
 								<thead>
 									<tr>
@@ -38,9 +39,13 @@
 							<div class="h4 font-weight-light"><strong>₹ {{ order.get_grand_total }}</strong> </div>
 						</div>
 					</div>
+
 				</div>
 			</div>
 			<div class="row justify-content-center"> <a href="" class="btn btn-outline-primary waves-effect p-2 mt-3 mb-5 col-3 ">Continue Shopping</a> <a href="{% url 'checkout'%}" class="btn btn-outline-info waves-effect p-2 mt-3 mb-5 ml-3 col-3">Proceed to Checkout</a> </div>
 		</div>
+		{% else %}
+			<p class="text-center" style="font-size: 40px">Your cart is empty </p>
+		{% endif %}
 	</div>
 </div> {% endblock %}
