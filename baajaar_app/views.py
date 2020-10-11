@@ -6,7 +6,11 @@ from .models import Customer, Product, Order, OrderedItem, ShippingAdress
 
 
 # Create your views here.
+def login(request):
+    return render(request, 'baajaar_app/login.html')
 
+def signup(request):
+    return render(request, 'baajaar_app/signup.html')
 
 def home(request):
     if request.user.is_authenticated:
@@ -78,7 +82,7 @@ def processOrder(request):
             customer=customer, completed=False)
         total = float(data['form']['total'])
 
-        if total == Order.get_cart_total:
+        if total == order.get_grand_total:
             order.completed = True
         order.save()
 
@@ -88,7 +92,7 @@ def processOrder(request):
                 order=order,
                 firstname=data['shipping']['firstName'],
                 lastname=data['shipping']['lastName'],
-                address=data['shipping']['Address'],
+                address=data['shipping']['address'],
                 state=data['shipping']['state'],
                 zipcode=data['shipping']['zip'],
 
